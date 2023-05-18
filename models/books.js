@@ -2,7 +2,14 @@ import { pool } from "../db/index.js";
 
 export async function getBooks() {
   // Query the database and return all books
-  return [];
+  try {
+    const getAll = await pool.query('SELECT * FROM books');
+    return getAll.rows;
+  } catch (error) {
+    // Handle the error (e.g., log it, throw a custom error, etc.)
+    console.error('Error fetching books:', error);
+    throw new Error('Failed to fetch books');
+  }
 }
 
 export async function searchBooksByTitle(searchTerm) {

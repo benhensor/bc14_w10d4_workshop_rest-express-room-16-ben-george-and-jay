@@ -1,9 +1,16 @@
 import { pool } from "../db/index.js";
 
 export async function getAuthors() {
-  // Query the database and return all authors
-  return [];
+  try {
+    const getAll = await pool.query('SELECT * FROM authors');
+    return getAll.rows;
+  } catch (error) {
+    // Handle the error (e.g., log it, throw a custom error, etc.)
+    console.error('Error fetching authors:', error);
+    throw new Error('Failed to fetch authors');
+  }
 }
+
 
 export async function searchAuthorsByName(searchTerm) {
   // Query the database and return all authors that have a name matching the searchTerm
