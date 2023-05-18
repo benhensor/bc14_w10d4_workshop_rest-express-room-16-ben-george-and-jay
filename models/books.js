@@ -14,30 +14,39 @@ export async function getBooks() {
 
 export async function searchBooksByTitle(searchTerm) {
   // Query the database and return all books that have a matching title matching the searchTerm
-  return [];
-}
+  try {
+    const byTitle = await pool.query(`SELECT * FROM  books WHERE title ILIKE $1`, [`%${searchTerm}%`]);
+    return byTitle.rows;
+  }
 
-export async function searchBooksByAuthor(searchTerm) {
-  // Query the database and return all books that have an author name matching the searchTerm
-  return [];
-}
+  catch(error) {
+// Handle the error (e.g., log it, throw a custom error, etc.)
+console.error('Error fetching Book:', error);
+throw new Error('Failed to fetch Book');
 
-export async function getBookById(id) {
-  // Query the database and return the book with a matching id
-  return {};
-}
+} }
 
-export async function createBook(book) {
-  // Query the database to create a book and return the newly created book
-  return {};
-}
+// export async function searchBooksByAuthor(searchTerm) {
+//   // Query the database and return all books that have an author name matching the searchTerm
+//   return [];
+// }
 
-export async function updateBookById(id, updates) {
-  // Query the database to update a book and return the newly updated book
-  return {};
-}
+// export async function getBookById(id) {
+//   // Query the database and return the book with a matching id
+//   return {};
+// }
 
-export async function deleteBookById(id) {
-  // Query the database to delete a book and return the deleted book
-  return {};
-}
+// export async function createBook(book) {
+//   // Query the database to create a book and return the newly created book
+//   return {};
+// }
+
+// export async function updateBookById(id, updates) {
+//   // Query the database to update a book and return the newly updated book
+//   return {};
+// }
+
+// export async function deleteBookById(id) {
+//   // Query the database to delete a book and return the deleted book
+//   return {};
+// }

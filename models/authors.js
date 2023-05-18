@@ -13,8 +13,19 @@ export async function getAuthors() {
 
 
 export async function searchAuthorsByName(searchTerm) {
-  // Query the database and return all authors that have a name matching the searchTerm
-  return [];
+  // Query the database and rtry {eturn all authors that have a name matching the searchTerm
+  try {
+    const byName = await pool.query(`SELECT * FROM authors WHERE first_name || ' ' || last_name  ILIKE $1`, [`%${searchTerm}%`]);
+    return [byName.rows];
+  }
+
+  catch(error) {
+// Handle the error (e.g., log it, throw a custom error, etc.)
+console.error('Error fetching author:', error);
+throw new Error('Failed to fetch author');
+}
+
+ 
 }
 
 export async function getAuthorById(id) {
