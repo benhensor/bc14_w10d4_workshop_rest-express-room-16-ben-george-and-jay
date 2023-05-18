@@ -1,5 +1,7 @@
 import pg from "pg";
 
+// BH woz here
+
 const connectionString = process.env.DB_CONNECTION_STRING;
 
 if (!connectionString) {
